@@ -20,6 +20,12 @@ func ExampleSats() {
 	fmt.Printf("std : %v (%v)\n", f, err)
 	m, err = Dot(v, v)
 	fmt.Printf("dot : %v (%v)\n", m, err)
+	i, err := ArgMin(v)
+	fmt.Printf("amin: %v (%v)\n", i, err)
+	i, err = ArgMax(v)
+	fmt.Printf("amax: %v (%v)\n", i, err)
+	mod, err := Mode([]rune{'h', 'e', 'l', 'l', 'o'})
+	fmt.Printf("mode: %c (%v)\n", mod, err)
 
 	// Output:
 	// min : 1 (<nil>)
@@ -31,4 +37,7 @@ func ExampleSats() {
 	// var : 1.25 (<nil>)
 	// std : 1.118033988749895 (<nil>)
 	// dot : 30 (<nil>)
+	// amin: 1 (<nil>)
+	// amax: 2 (<nil>)
+	// mode: l (<nil>)
 }

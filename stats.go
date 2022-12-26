@@ -17,38 +17,59 @@ type Ordered interface {
 		float32 | float64
 }
 
-// Min returns the minimal value in values
-func Min[T Ordered](values []T) (T, error) {
+// ArgMin returns the index of minimal value in values
+func ArgMin[T Ordered](values []T) (int, error) {
 	if len(values) == 0 {
-		var zero T
-		return zero, ErrEmpty
+		return 0, ErrEmpty
 	}
 
-	m := values[0]
-	for _, v := range values[1:] {
+	am, m := 0, values[0]
+	for i, v := range values[1:] {
 		if v < m {
-			m = v
+			am, m = i+1, v
 		}
 	}
 
-	return m, nil
+	return am, nil
+}
+
+// Min returns the minimal value in values
+func Min[T Ordered](values []T) (T, error) {
+	i, err := ArgMin(values)
+	if err != nil {
+		var zero T
+		return zero, err
+	}
+
+	return values[i], nil
+}
+
+// ArgMax returns the index of the maximal value in values
+func ArgMax[T Ordered](values []T) (int, error) {
+	if len(values) == 0 {
+		return 0, ErrEmpty
+	}
+
+	am, m := 0, values[0]
+	for i, v := range values[1:] {
+		if v > m {
+			am, m = i+1, v
+		}
+	}
+
+	return am, nil
+
 }
 
 // Max returns the maximal value in values
 func Max[T Ordered](values []T) (T, error) {
-	if len(values) == 0 {
+	i, err := ArgMax(values)
+	if err != nil {
 		var zero T
-		return zero, ErrEmpty
+		return zero, err
 	}
 
-	m := values[0]
-	for _, v := range values[1:] {
-		if v > m {
-			m = v
-		}
-	}
-
-	return m, nil
+	return values[i], nil
 }
 
 // Sum return the sum of values
@@ -151,4 +172,27 @@ func Dot[T1 Ordered, T2 Ordered](v1 []T1, v2 []T2) (T1, error) {
 	}
 
 	return t, nil
+}
+
+// Mode returns the most common element in values
+func Mode[T comparable](values []T) (T, error) {
+	if len(values) == 0 {
+		var zero T
+		return zero, ErrEmpty
+	}
+
+	freq := make(map[T]int)
+	for _, v := range values {
+		freq[v]++
+	}
+
+	var mode T
+	count := 0
+	for v, c := range freq {
+		if c > count {
+			mode, count = v, c
+		}
+	}
+
+	return mode, nil
 }
