@@ -1,6 +1,9 @@
 package stats
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 func ExampleArgMin() {
 	v := []int{3, 1, 4, 2}
@@ -129,4 +132,14 @@ func ExampleMode() {
 
 	// Output:
 	// mode: l (<nil>)
+}
+
+func ExampleSample() {
+	rand.Seed(353) // Deterministic result
+	v := []string{"a", "b", "c", "d", "e", "f"}
+	s, err := Sample(v, 3)
+	fmt.Printf("sample: %v (%v)\n", s, err)
+
+	// Output:
+	// sample: [f a c] (<nil>)
 }

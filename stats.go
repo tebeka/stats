@@ -3,12 +3,14 @@ package stats
 import (
 	"errors"
 	"math"
+	"math/rand"
 	"sort"
 )
 
 var (
 	ErrEmpty = errors.New("empty slice")
 	ErrSize  = errors.New("different size")
+	ErrSmall = errors.New("to small")
 )
 
 type Ordered interface {
@@ -223,4 +225,20 @@ func Mode[T comparable](values []T) (T, error) {
 	}
 
 	return mode, nil
+}
+
+// Sample returns a sample of "k" elements from values
+func Sample[T any](values []T, k int) ([]T, error) {
+	if k > len(values) {
+		return nil, ErrSmall
+	}
+
+	// TODO: Make it more efficient
+	idx := rand.Perm(len(values))
+	s := make([]T, 0, k)
+	for _, i := range idx[:k] {
+		s = append(s, values[i])
+	}
+
+	return s, nil
 }
