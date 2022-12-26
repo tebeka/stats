@@ -63,6 +63,15 @@ func ExampleMean() {
 	// mean: 2.5 (<nil>)
 }
 
+func ExampleGeoMean() {
+	v := []int{3, 1, 4, 2}
+	f, err := GeoMean(v)
+	fmt.Printf("geo mean: %v (%v)\n", f, err)
+
+	// Output:
+	// geo mean: 2.213363839400643 (<nil>)
+}
+
 func ExampleMedian() {
 	v := []int{3, 1, 2}
 	f, err := Median(v)

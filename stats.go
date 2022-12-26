@@ -90,7 +90,7 @@ func Prod[T Ordered](values []T) T {
 	return p
 }
 
-// Mean return the mean of values
+// Mean return the arithmetic mean of values
 func Mean[T Ordered](values []T) (float64, error) {
 	if len(values) == 0 {
 		return 0, ErrEmpty
@@ -99,6 +99,20 @@ func Mean[T Ordered](values []T) (float64, error) {
 	s := Sum(values)
 	m := float64(s) / float64(len(values))
 	return m, nil
+}
+
+// GeoMean return the geometric mean of values
+func GeoMean[T Ordered](values []T) (float64, error) {
+	if len(values) == 0 {
+		return 0, ErrEmpty
+	}
+
+	s := 0.0
+	for _, v := range values {
+		s += math.Log(float64(v))
+	}
+	s /= float64(len(values))
+	return math.Exp(s), nil
 }
 
 // Median return the median of values
