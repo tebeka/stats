@@ -115,6 +115,20 @@ func GeoMean[T Ordered](values []T) (float64, error) {
 	return math.Exp(s), nil
 }
 
+// HarmonicMean return the harmonic mean of values
+func HarmonicMean[T Ordered](values []T) (float64, error) {
+	if len(values) == 0 {
+		return 0, ErrEmpty
+	}
+
+	s := 0.0
+	for _, v := range values {
+		s += 1 / float64(v)
+	}
+	m := float64(len(values)) / s
+	return m, nil
+}
+
 // Median return the median of values
 func Median[T Ordered](values []T) (float64, error) {
 	if len(values) == 0 {

@@ -72,6 +72,15 @@ func ExampleGeoMean() {
 	// geo mean: 2.213363839400643 (<nil>)
 }
 
+func ExampleHarmonicMean() {
+	v := []int{3, 1, 4, 2}
+	f, err := HarmonicMean(v)
+	fmt.Printf("harmonic mean: %v (%v)\n", f, err)
+
+	// Output:
+	// harmonic mean: 1.9200000000000004 (<nil>)
+}
+
 func ExampleMedian() {
 	v := []int{3, 1, 2}
 	f, err := Median(v)
