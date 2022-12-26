@@ -6,8 +6,10 @@ import (
 	"sort"
 )
 
-var ErrEmpty = errors.New("empty slice")
-var ErrSize = errors.New("different size")
+var (
+	ErrEmpty = errors.New("empty slice")
+	ErrSize  = errors.New("different size")
+)
 
 type Ordered interface {
 	~int | ~int8 | ~int16 | ~int32 | ~int64 |
