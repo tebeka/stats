@@ -243,7 +243,7 @@ func Sample[T any](values []T, k int) ([]T, error) {
 	return s, nil
 }
 
-// Shuffle shuffles values
+// Shuffle shuffles values in place
 func Shuffle[T any](values []T) {
 	rand.Shuffle(len(values), func(i, j int) {
 		values[i], values[j] = values[j], values[i]
