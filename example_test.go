@@ -1,13 +1,15 @@
-package stats
+package stats_test
 
 import (
 	"fmt"
 	"math/rand"
+
+	"github.com/tebeka/stats"
 )
 
 func ExampleArgMin() {
 	v := []int{3, 1, 4, 2}
-	i, err := ArgMin(v)
+	i, err := stats.ArgMin(v)
 	fmt.Printf("argmin: %v (%v)\n", i, err)
 
 	// Output:
@@ -16,7 +18,7 @@ func ExampleArgMin() {
 
 func ExampleMin() {
 	v := []int{3, 1, 4, 2}
-	m, err := Min(v)
+	m, err := stats.Min(v)
 	fmt.Printf("min: %v (%v)\n", m, err)
 
 	// Output:
@@ -25,7 +27,7 @@ func ExampleMin() {
 
 func ExampleArgMax() {
 	v := []int{3, 1, 4, 2}
-	i, err := ArgMax(v)
+	i, err := stats.ArgMax(v)
 	fmt.Printf("argmax: %v (%v)\n", i, err)
 
 	// Output:
@@ -34,7 +36,7 @@ func ExampleArgMax() {
 
 func ExampleMax() {
 	v := []int{3, 1, 4, 2}
-	m, err := Max(v)
+	m, err := stats.Max(v)
 	fmt.Printf("max: %v (%v)\n", m, err)
 
 	// Output:
@@ -43,7 +45,7 @@ func ExampleMax() {
 
 func ExampleSum() {
 	v := []int{3, 1, 4, 2}
-	fmt.Println("sum:", Sum(v))
+	fmt.Println("sum:", stats.Sum(v))
 
 	// Output:
 	// sum: 10
@@ -51,7 +53,7 @@ func ExampleSum() {
 
 func ExampleProd() {
 	v := []int{3, 1, 4, 2}
-	fmt.Println("prod:", Prod(v))
+	fmt.Println("prod:", stats.Prod(v))
 
 	// Output:
 	// prod: 24
@@ -59,7 +61,7 @@ func ExampleProd() {
 
 func ExampleMean() {
 	v := []int{3, 1, 4, 2}
-	f, err := Mean(v)
+	f, err := stats.Mean(v)
 	fmt.Printf("mean: %v (%v)\n", f, err)
 
 	// Output:
@@ -68,7 +70,7 @@ func ExampleMean() {
 
 func ExampleGeoMean() {
 	v := []int{3, 1, 4, 2}
-	f, err := GeoMean(v)
+	f, err := stats.GeoMean(v)
 	fmt.Printf("geo mean: %v (%v)\n", f, err)
 
 	// Output:
@@ -77,7 +79,7 @@ func ExampleGeoMean() {
 
 func ExampleHarmonicMean() {
 	v := []int{3, 1, 4, 2}
-	f, err := HarmonicMean(v)
+	f, err := stats.HarmonicMean(v)
 	fmt.Printf("harmonic mean: %v (%v)\n", f, err)
 
 	// Output:
@@ -86,11 +88,11 @@ func ExampleHarmonicMean() {
 
 func ExampleMedian() {
 	v := []int{3, 1, 2}
-	f, err := Median(v)
+	f, err := stats.Median(v)
 	fmt.Printf("median: %v (%v)\n", f, err)
 
 	v = append(v, 4)
-	f, err = Median(v)
+	f, err = stats.Median(v)
 	fmt.Printf("median: %v (%v)\n", f, err)
 
 	// Output:
@@ -100,7 +102,7 @@ func ExampleMedian() {
 
 func ExampleVar() {
 	v := []int{3, 1, 4, 2}
-	f, err := Var(v)
+	f, err := stats.Var(v)
 	fmt.Printf("var: %v (%v)\n", f, err)
 
 	// Output:
@@ -109,7 +111,7 @@ func ExampleVar() {
 
 func ExampleStd() {
 	v := []int{3, 1, 4, 2}
-	f, err := Std(v)
+	f, err := stats.Std(v)
 	fmt.Printf("std: %v (%v)\n", f, err)
 
 	// Output:
@@ -118,7 +120,7 @@ func ExampleStd() {
 
 func ExampleDot() {
 	v := []int{3, 1, 4, 2}
-	m, err := Dot(v, v)
+	m, err := stats.Dot(v, v)
 	fmt.Printf("dot : %v (%v)\n", m, err)
 
 	// Output:
@@ -127,7 +129,7 @@ func ExampleDot() {
 
 func ExampleMode() {
 	v := []rune{'h', 'e', 'l', 'l', 'o'}
-	mod, err := Mode(v)
+	mod, err := stats.Mode(v)
 	fmt.Printf("mode: %c (%v)\n", mod, err)
 
 	// Output:
@@ -137,9 +139,19 @@ func ExampleMode() {
 func ExampleSample() {
 	rand.Seed(353) // Deterministic result
 	v := []string{"a", "b", "c", "d", "e", "f"}
-	s, err := Sample(v, 3)
+	s, err := stats.Sample(v, 3)
 	fmt.Printf("sample: %v (%v)\n", s, err)
 
 	// Output:
 	// sample: [f a c] (<nil>)
+}
+
+func ExampleShuffle() {
+	rand.Seed(353) // Deterministic result
+	v := []string{"a", "b", "c", "d", "e", "f"}
+	stats.Shuffle(v)
+	fmt.Println("shuffle:", v)
+
+	// Output:
+	// shuffle: [b a c d f e]
 }
