@@ -155,3 +155,22 @@ func ExampleShuffle() {
 	// Output:
 	// shuffle: [b a c d f e]
 }
+
+func ExampleMagnitude() {
+	v := []int{1, 2, 3}
+	m := vec.Magnitude(v)
+	fmt.Printf("magnitude: %v\n", m)
+
+	// Output:
+	// magnitude: 3.7416573867739413
+}
+
+func ExampleCosineSim() {
+	v1 := []int{1, 2, 3}
+	v2 := []int{4, 5, 6}
+	s, err := vec.CosineSim(v1, v2)
+	fmt.Printf("cosine similarity: %v (%v)\n", s, err)
+
+	// Output:
+	// cosine similarity: 0.9746318461970762 (<nil>)
+}
